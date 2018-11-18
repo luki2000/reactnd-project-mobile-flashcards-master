@@ -9,8 +9,7 @@ class DeckList extends React.Component {
 
      componentDidMount() {
         getInitialDecks()
-            .then(decks => {
-              console.log('really',decks)  
+            .then(decks => { 
                 this.setState({decks:JSON.parse(decks)})
                 
             }
@@ -21,7 +20,6 @@ class DeckList extends React.Component {
     updateDeck = (id,card) => {
         addCardToDeck(id,card)
         .then( _ => {
-            console.log('update complete');
             getAllDecks()
             .then(decks => this.setState({decks:JSON.parse(decks)}))
         })

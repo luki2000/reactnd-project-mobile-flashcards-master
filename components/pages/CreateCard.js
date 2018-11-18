@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextInput, View, Button } from 'react-native';
+import { Text, TextInput, View, Button, Alert } from 'react-native';
 import { addCardToDeck, getAllDecks } from '../../utils/api';
 
 class CreateCard extends React.Component {
@@ -16,7 +16,7 @@ class CreateCard extends React.Component {
             question: this.state.question,
             answer: this.state.answer
         }
-        if(id && card) {
+        if(this.state.question && this.state.answer) {
 
             this.setState = ({ 
                 question: '',
@@ -26,29 +26,27 @@ class CreateCard extends React.Component {
             this.props.navigation.state.params.updateDeck(id,card);
             this.props.navigation.navigate('DeckList');
           
+        } else {
+            Alert.alert(
+                'You need to fill both question & answer'
+             )
         }
     }
 
-
     render() {
-        //console.log('input', typeof this.state.question, this.state.answer);
-        //console.log('create card', this.props.navigation.state.params);
-        console.log('update?',this.props.navigation.state.params.updateDecks);
-        const { id, title} = this.props.navigation.state.params;
+        const { id } = this.props.navigation.state.params;
         return (
-            <View>
-                <Text>Create Card</Text>
-                
-                <Text>Add Question</Text>
+            <View style={{flex:1, alignItems: 'center'}}>
+                <Text style={{marginTop:20}}>Add Question</Text>
                 <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={{height: 40, borderColor: 'gray', borderWidth: 1, width:'50%',margin:20}}
                     onChangeText={(text) => this.setState({question:text})}
                     value={this.state.question}
                 />
 
                 <Text>Add Answer</Text>
                 <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={{height: 40, borderColor: 'gray', borderWidth: 1, width:'50%', margin:20}}
                     onChangeText={(text) => this.setState({answer:text})}
                     value={this.state.answer}
                 />

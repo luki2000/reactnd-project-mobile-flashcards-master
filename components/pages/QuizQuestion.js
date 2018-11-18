@@ -15,30 +15,29 @@ hideAnswer = () => {
 }
 
     render() {
-        console.log(this.state.status)
         return (
-        <View>
+        <View style={{flex:1, alignItems: 'center'}}>
             <Text style={{fontSize:50}}>{this.props.questions[this.props.current].question}</Text>
             
             {!this.state.status 
                 ? <TouchableOpacity
-                style={{width:50,height:50}}
+                style={{backgroundColor: 'orange', width:120,height:80,marginTop:60,marginBottom: 60, padding:20,borderRadius:5}}
                 onPress={this.showAnswer}
-            ><Text>Reveal Answer</Text></TouchableOpacity>
+            ><Text style={{textAlign:'center'}}>Reveal Answer</Text></TouchableOpacity>
                 : null
             }
 
-            {this.state.status ?<Text>{this.props.questions[this.props.current].answer}</Text> : null}
+            {this.state.status ?<Text style={{top:80, fontSize: 20}}>{this.props.questions[this.props.current].answer}</Text> : null}
             
             <TouchableOpacity
-                style={{backgroundColor:'green', marginTop:20,borderRadius:5, padding:8}}
+                style={{backgroundColor:'green', width: 150, marginTop:20,borderRadius:5, padding:8, position:'absolute', top:300}}
                 onPress={() => {
                     this.props.setcorrect()
                     this.hideAnswer()
                 }}
             ><Text style={{color:'white',textAlign:'center'}}>Correct</Text></TouchableOpacity>
              <TouchableOpacity
-                style={{backgroundColor:'red', marginTop:20, borderRadius:5, padding:8, textAlign:'center'}}
+                style={{backgroundColor:'red', width: 150, marginTop:20, borderRadius:5, padding:8, position:'absolute', top:350}}
                 onPress={() => {
                     this.props.setincorrect()
                     this.hideAnswer()

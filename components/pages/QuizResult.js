@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 
 class QuizResult extends React.Component {
     //1. Score displayed(percentage of correct answers.)
@@ -7,24 +7,27 @@ class QuizResult extends React.Component {
     //3.Go back to individual Deck
     render() {
         const { goBack } = this.props.navigate;
+        const resultInPercentage = Math.floor(this.props.correct/this.props.totalquestions * 100);
         return (
-            <View>
-                <Text>QuizResult</Text>
-                <Text>{`You managed at total of ${Math.floor(this.props.correct/this.props.totalquestions * 100)}% correct answers`}</Text>
+            <View style={{flex:1, alignItems: 'center'}}>
+                <Text style={{marginTop: 50, fontSize:20}}>QuizResult</Text>
+                <Text style={{marginTop: 20, fontSize:16}}>{`You managed a total of ${resultInPercentage}% correct answers`}</Text>
+                <Text style={{marginTop: 20, fontSize:16}}>{resultInPercentage > 49 ? 'You Did Well, Bravo!':'You need to practise'}</Text>
+  
+                 <TouchableOpacity
+                    style={{marginTop:20, backgroundColor:'purple', borderRadius:5, padding:8}}
+                    title="Start Over"
+                    onPress={this.props.startover}
+                ><Text style={{color:'white'}}>Start Over</Text>
+                </TouchableOpacity>
 
-                <Button
-                title="Start Over"
-                color="purple"
-                onPress={this.props.startover}
-                />
-                
 
-                <Button
-                color="purple"
-                onPress={ () =>  goBack()} 
-                title="Go back to this Deck's page"
-                />
-                
+                <TouchableOpacity
+                    style={{marginTop:20, backgroundColor:'purple', borderRadius:5, padding:8}}
+                    onPress={ () =>  goBack()}
+                ><Text style={{color:'white'}}>Go to Deck</Text>
+                </TouchableOpacity>
+
             </View>
         );
     }
