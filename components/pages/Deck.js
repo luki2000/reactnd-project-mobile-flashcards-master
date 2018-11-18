@@ -1,17 +1,17 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, TouchableOpacity } from 'react-native';
 
 class Deck extends React.Component {
     render() {
         const { id, title, questions } = this.props.navigation.state.params.deck;
         return (
-            <View>
-                <Text>{id}</Text>
-                <Text>{`${questions.length} Card(s)`}</Text>
-                <Text>{JSON.stringify(questions)}</Text>
+            <View style={{flex:1, alignItems: 'center'}}>
+                <Text style={{fontSize:35,marginTop:60}}>{`${title} Question`}</Text>
+                <Text style={{marginBottom:30}}>{`${questions.length} Card(s)`}</Text>
 
 
-                <Button
+                <TouchableOpacity
+                    style={{marginTop:20, backgroundColor:'purple', borderRadius:5, padding:8}}
                     title="Start Quiz"
                     color="#841584"
                     onPress={ () => {
@@ -20,11 +20,10 @@ class Deck extends React.Component {
     
                         });
                     }}
-                />
-
-                <Button
-                    title="Create Card"
-                    color="#841584"
+                ><Text style={{color:'white'}}>Start Quiz</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={{marginTop:20, backgroundColor:'purple', borderRadius:5, padding:8}}
                     onPress={ () => {
                         this.props.navigation.navigate('CreateCard', {
                             id,
@@ -33,7 +32,9 @@ class Deck extends React.Component {
     
                         });
                     }}
-                />
+                >
+                <Text style={{color:'white'}}>Create Card</Text>
+                </TouchableOpacity>
 
             </View>
         );

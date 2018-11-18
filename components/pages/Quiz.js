@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View } from 'react-native';
 import QuizQuestion from './QuizQuestion';
 import QuizResult from './QuizResult';
 import { clearNotifcation, setLocalNotfication} from '../../utils/helpers';
@@ -35,24 +35,20 @@ class Quiz extends React.Component {
         })
     }
     
-    //TODO
-    //Add a 'one quiz completed today' property to asnystorage set to false
-    //when at least one quiz is complete set the 'one quiz completed today' to true
-    //implement the notifcation logic to check that property
-    
     render() {
  
         const { questions } = this.props.navigation.state.params;
         const numberOfQuestions = questions.length;
+        const currentQuestion = this.state.current;
 
-        if(this.state.current  === numberOfQuestions) {
+        if(currentQuestion  === numberOfQuestions) {
             clearNotifcation()
                 .then(setLocalNotfication)
         }
         return (
-            <View>
-                <Text>{`questions answered: ${this.state.current}/${numberOfQuestions}`}</Text>
-            {this.state.current ==  numberOfQuestions
+            <View style={{flex:1,alignItems: 'center'}}>
+                <Text style={{fontSize:18}}>{`Questions answered: ${currentQuestion}/${numberOfQuestions}`}</Text>
+            {currentQuestion ===  numberOfQuestions
                 ? <QuizResult
                     correct={this.state.correct}
                     totalquestions={numberOfQuestions}

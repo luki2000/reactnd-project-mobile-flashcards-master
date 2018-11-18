@@ -40,17 +40,18 @@ class DeckList extends React.Component {
     render() {
 
         let decksInfo = this.state.decks ? this.state.decks.map(deck => 
-                (<Button 
+                (<TouchableOpacity
+                    style={{borderWidth: 0.5,borderColor: 'black',width:'100%',padding:20, textAlign:'center'}}
                     key={deck.title}
-                    title={`Title: ${deck.title}  ${deck.questions.length} cards`}
                     onPress={ () => {
-                    this.props.navigation.navigate('Deck', {
-                        deck,
-                        updateDeck: this.updateDeck
-
-                    });
-                }
-                }></Button>)
+                        this.props.navigation.navigate('Deck', {
+                            deck,
+                            updateDeck: this.updateDeck
+                        });
+                    }}>
+                    <Text style={{fontSize:30}}>{`Title: ${deck.title}`}</Text>
+                    <Text style={{fontSize:15}}>{`${deck.questions.length} cards`}</Text>   
+                </TouchableOpacity>)
             ) : null;
         
         return (
@@ -64,7 +65,7 @@ class DeckList extends React.Component {
                         updateDeck: this.updateDeck
                     })}}><Text>Create Deck</Text>
                 </TouchableOpacity>
-                <Text style={{fontSize:30}}>Deck List</Text>
+                <Text style={{fontSize:50}}>Deck List</Text>
                 {decksInfo}
             </View>
         );
